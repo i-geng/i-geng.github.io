@@ -88,33 +88,191 @@ We can use these area-weighted vertex normals for Phong shading.
     Phong shading (right) produces smoother results than flat shading (left).
 </div>
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+### Part 4: Edge Flips
+
+An edge flip is a basic topological operation. To implement edge flips, I identify all elements
+in the original mesh of a pair of triangles: $$6$$ half-edges, $$2$$ faces, $$5$$ edges, and
+$$4$$ vertices. If either of the neighboring faces are boundary faces, I immediately 
+return the given edge. Otherwise, I re-assign the half-edges of each vertex, edge, and 
+face in the modified mesh. Finally, I set all the neighbors of each of the $$6$$ half-edges. Finally, I return the new flipped edge by accessing the corresponding edge of one of its two half-edges.
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part4_before.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part4_after.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
+    The teapot before and after performing several edge flips.
 </div>
 
+### Part 5: Edge Splits
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+Edge splits are another basic topographical operation. To perform an edge split, I
+list out all the half-edges, vertices, edges, and faces that are present in the original mesh of a pair of triangles. During any type of edge split, I never delete any existing mesh elements. To split a regular, non-boundary edge, I reassign pointers of the original
+elements if necessary, and create $$1$$ new vertex called $$M$$, $$6$$ new half-edges,
+$$3$$ new edges, and $$2$$ new faces. Then, I set the half-edges of each vertex, edge,
+and face in the new mesh. Finally, I set all the neighbors of each half-edge in
+the new mesh.
 
-{% raw %}
-```html
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+Splitting boundary edges requires a slightly different implementation. As before, I list out the existing elements in the original mesh, including a pointer to the virtual boundary face. Then, to perform the edge split operation, I create $$1$$ new vertex called $$M$$, $$4$$ new half-edges (one of which is a boundary half-edge),
+$$2$$ new edges (one of which is a boundary edge), and $$1$$ new face. I do not divide the
+virtual boundary face or create any new virtual boundary faces. Then, I set the
+half-edges of each element and set the neighbors of each half-edge in the new mesh.
+However, ordering matters when setting the neighbors of the two boundary half-edges,
+since I need to access the next boundary half-edge before “losing” the pointer during reassignment.
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part5_teapot_before.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part5_after_edgesplit.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-```
-{% endraw %}
+<div class="caption">
+    The teapot before and after performing several edge splits.
+</div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part5_teapot_before.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part5_after_edgesplit_edgeflip.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    The teapot before and after edge splits and flips in different areas of the mesh.
+</div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part5_beetle_before.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part5_beetle_after.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Close-up of a car mesh before and after several boundary edge splits.
+</div>
+
+### Part 6: Loop Subdivision for Mesh Upsampling
+
+To implement loop subdivision, I iterate over all vertices in the original mesh and calculate each vertex’s updated position. Then, I calculate the position of the new vertex associated with every edge in the original mesh that will be added in the process of loop subdivision. I split each original edge; since new edges are appended to the end of the list of edges, I determine the number of edges in the original mesh and iterate through that number of edges so that I only split original edges. After splitting edges, I iterate over all edges in the edited mesh and flip any edge that connects an old vertex to a new vertex.
+
+After loop subdivision, sharp corners and edges in the original mesh become smoothed out.
+The effect is more apparent if the original mesh is relatively low-poly.
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_ico0.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_ico1.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_ico2.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_ico3.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_ico4.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    An icosahedron after multiple rounds of loop subdivision.
+</div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_torus0.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_torus1.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_torus2.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_torus3.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_torus4.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    A torus after multiple rounds of loop subdivision.
+</div>
+
+This smoothing effect can be reduced by pre-splitting some edges.
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_sym_cube0.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_sym_cube1.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_sym_cube2.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_sym_cube3.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_sym_cube4.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    A cube after multiple rounds of loop subdivision.
+</div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_more_cube0.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_more_cube1.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_more_cube2.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_more_cube3.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_more_cube4.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    By adding more edges to the cube before upsampling, the original mesh has more polygons; the sharp edges do not lose as much clarity and the mesh remains more rectangular.
+</div>
+
+However, if the topology of the original is not symmetrical, the mesh can become asymmetrical
+with upsampling.
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_asym_cube0.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_asym_cube1.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_asym_cube2.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_asym_cube3.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/mesh_edit/part6_asym_cube4.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Asymmetries become more apparent with more rounds of loop subdivision.
+</div>
