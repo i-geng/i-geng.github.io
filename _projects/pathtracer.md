@@ -45,13 +45,13 @@ In the case of intersection, I update the *Intersection* data object accordingly
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/pathtracer/part1_CBempty.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="caption">
+    <div class="figcaption">
         CBempty.dae
     </div>
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/pathtracer/part1_CBgems.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="caption">
+    <div class="figcaption">
         CBgems.dae
     </div>
 </div>
@@ -59,13 +59,13 @@ In the case of intersection, I update the *Intersection* data object accordingly
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/pathtracer/part1_CBspheres_lambertian.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="caption">
+    <div class="figcaption">
         CBspheres_lambertian.dae
     </div>
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/pathtracer/part1_cow.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="caption">
+    <div class="figcaption">
         cow.dae
     </div>
 </div>
