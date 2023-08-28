@@ -2,7 +2,7 @@
 layout: page
 title: Mesh Edit
 description: CS 184 - Computer Graphics and Imaging
-img: assets/img/mesh_edit/teapot.png
+img: assets/img/mesh_edit/teapot_icon.png
 importance: 1
 category: Graphics
 ---
