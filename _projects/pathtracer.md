@@ -95,7 +95,7 @@ Images with normal shading for a few large .dae files, rendered with BVH acceler
     </div>
 </div>
 <div class="row justify-content-center">
-    <div class="col-sm mt-3 mt-md-0">
+    <div class="col-sm mt-3 mt-md-0 justify-content-center">
         {% include figure.html path="assets/img/pathtracer/part2_walle.png" caption="wall-e.dae" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
@@ -251,7 +251,7 @@ For CBbunny.dae, here are rendered views with max ray depth set to
     </div>
 </div>
 <div class="row justify-content-center">
-    <div class="col-sm mt-3 mt-md-0">
+    <div class="col-sm mt-3 mt-md-0 justify-content-center">
         {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_100.png" caption="max ray depth = 100" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
@@ -290,7 +290,7 @@ I used 4 light rays and max ray depth of 5.
     </div>
 </div>
 <div class="row justify-content-center">
-    <div class="col-sm mt-3 mt-md-0">
+    <div class="col-sm mt-3 mt-md-0 justify-content-center">
         {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_4_5.png" caption="1024 samples per pixel" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
