@@ -11,6 +11,7 @@ In this project:
 - Raytracing to produce realistic renders of scenes with point or area lights and Lambertian surfaces.
 - Optimization with bounding volume hierarchies and adaptive sampling.
 
+
 ### Part 1: Ray Generation and Scene Intersection.
 
 To generate a camera ray, I first calculate
@@ -59,6 +60,7 @@ Images with normal shading for a few small .dae files.
     </div>
 </div>
 
+
 ### Part 2: Bounding Volume Hierarchies
 
 For my BVH construction algorithm, 
@@ -92,7 +94,7 @@ Images with normal shading for a few large .dae files, rendered with BVH acceler
         {% include figure.html path="assets/img/pathtracer/part2_maxplanck.png" caption="maxplanck.dae" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/pathtracer/part2_walle.png" caption="wall-e.dae" class="img-fluid rounded z-depth-1" %}
     </div>
@@ -103,6 +105,7 @@ speed-up factor of approximately 300, while for more complex scenes like beast.d
 maxplanck.dae, BVH acceleration is over 1000 times faster. For a complex geometric scene
 like CBlucy.dae, BVH acceleration can complete a render in just 0.0732 sec (I did not attempt
 to render CBlucy.dae without acceleration).
+
 
 ### Part 3: Direct Illumination
 
@@ -180,6 +183,7 @@ barely lit. In contrast, the image created with importance sampling is much clea
     </div>
 </div>
 
+
 ### Part 4: Global Illumination
 
 For indirect lighting,
@@ -246,7 +250,7 @@ For CBbunny.dae, here are rendered views with max ray depth set to
         {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_3.png" caption="max ray depth = 3" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_100.png" caption="max ray depth = 100" class="img-fluid rounded z-depth-1" %}
     </div>
@@ -285,7 +289,7 @@ I used 4 light rays and max ray depth of 5.
         {% include figure.html path="assets/img/pathtracer/part4_CBbunny_64_4_5.png" caption="64 samples per pixel" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_4_5.png" caption="1024 samples per pixel" class="img-fluid rounded z-depth-1" %}
     </div>
@@ -295,6 +299,7 @@ As the number of samples per pixel, the scene becomes less noisy.
 At just 1 sample per pixel, the image is very spotty, and the shadows on the bunny
 are not uniform. At 1024 samples per pixel, the image is much clearer, and
 the bunny's shading is much smoother.
+
 
 ### Part 5: Adaptive Sampling
 

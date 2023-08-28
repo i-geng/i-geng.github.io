@@ -12,6 +12,7 @@ In this project:
 - Implementing mesh operations: edge flips and splits
 - Upsampling meshes with loop subdivision
 
+
 ## Section I: Bezier Curves and Surfaces
 ### Part 1: Bezier Curves with 1D de Casteljau Subdivision
 
@@ -53,6 +54,7 @@ This sequence shows six levels of Bezier curve evaluation, from the original con
     </div>
 </div>
 
+
 ### Part 2: Bezier Surfaces with Separable 1D de Casteljau
 
 Given an $$n \times n$$ grid of control points, we can use the separable application of
@@ -67,6 +69,7 @@ Bezier surface.
 <div class="caption">
     The Utah teapot.
 </div>
+
 
 ## Section II: Triangle Meshes and the Half-Edge Data Structure
 ### Part 3: Area-Weighted Vertex Normals
@@ -88,6 +91,7 @@ We can use these area-weighted vertex normals for Phong shading.
     Phong shading (right) produces smoother results than flat shading (left).
 </div>
 
+
 ### Part 4: Edge Flips
 
 An edge flip is a basic topological operation. To implement edge flips, I identify all elements
@@ -107,6 +111,7 @@ face in the modified mesh. Finally, I set all the neighbors of each of the $$6$$
 <div class="caption">
     The teapot before and after performing several edge flips.
 </div>
+
 
 ### Part 5: Edge Splits
 
@@ -159,6 +164,7 @@ since I need to access the next boundary half-edge before “losing” the point
 <div class="caption">
     Close-up of a car mesh before and after several boundary edge splits.
 </div>
+
 
 ### Part 6: Loop Subdivision for Mesh Upsampling
 
