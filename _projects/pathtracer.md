@@ -94,8 +94,9 @@ Images with normal shading for a few large .dae files, rendered with BVH acceler
         {% include figure.html path="assets/img/pathtracer/part2_maxplanck.png" caption="maxplanck.dae" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-<div class="mx-auto">
-    {% include figure.html path="assets/img/pathtracer/part2_walle.png" caption="wall-e.dae" class="img-fluid rounded z-depth-1" %}
+<div class="text-center">
+  <img src="/assets/img/pathtracer/part2_walle-e.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
+  <figcaption class="caption">wall-e.dae</figcaption>
 </div>
 
 For cow.dae, BVH acceleration yields a
@@ -248,8 +249,9 @@ For CBbunny.dae, here are rendered views with max ray depth set to
         {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_3.png" caption="max ray depth = 3" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-<div class="mx-auto">
-    {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_100.png" caption="max ray depth = 100" class="img-fluid rounded z-depth-1" %}
+<div class="text-center">
+  <img src="/assets/img/pathtracer/part4_CBbunny_1024_32_100.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
+  <figcaption class="caption">max ray depth = 100</figcaption>
 </div>
 
 A max ray depth of 0 corresponds to only zero-bounce lighting, so the only thing
@@ -286,7 +288,7 @@ I used 4 light rays and max ray depth of 5.
     </div>
 </div>
 <div class="text-center">
-  <img src="/assets/img/pathtracer/part4_CBbunny_1024_4_5.png" class="mx-auto d-block" alt="Centered Image">
+  <img src="/assets/img/pathtracer/part4_CBbunny_1024_4_5.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
   <figcaption class="caption">1024 samples per pixel</figcaption>
 </div>
 
