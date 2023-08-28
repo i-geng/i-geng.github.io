@@ -95,7 +95,7 @@ Images with normal shading for a few large .dae files, rendered with BVH acceler
     </div>
 </div>
 <div class="text-center">
-  <img src="/assets/img/pathtracer/part2_walle-e.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
+  <img src="/assets/img/pathtracer/part2_walle.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
   <figcaption class="caption">wall-e.dae</figcaption>
 </div>
 
