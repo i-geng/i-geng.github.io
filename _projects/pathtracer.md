@@ -94,10 +94,8 @@ Images with normal shading for a few large .dae files, rendered with BVH acceler
         {% include figure.html path="assets/img/pathtracer/part2_maxplanck.png" caption="maxplanck.dae" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-<div class="row justify-content-center">
-    <div class="col-sm mt-3 mt-md-0 justify-content-center">
-        {% include figure.html path="assets/img/pathtracer/part2_walle.png" caption="wall-e.dae" class="mx-auto img-fluid rounded z-depth-1" %}
-    </div>
+<div class="mx-auto">
+    {% include figure.html path="assets/img/pathtracer/part2_walle.png" caption="wall-e.dae" class="img-fluid rounded z-depth-1" %}
 </div>
 
 For cow.dae, BVH acceleration yields a
@@ -250,10 +248,8 @@ For CBbunny.dae, here are rendered views with max ray depth set to
         {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_3.png" caption="max ray depth = 3" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-<div class="row justify-content-center">
-    <div class="col-sm mt-3 mt-md-0 justify-content-center">
-        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_100.png" caption="max ray depth = 100" class="mx-auto img-fluid rounded z-depth-1" %}
-    </div>
+<div class="mx-auto">
+    {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_100.png" caption="max ray depth = 100" class="img-fluid rounded z-depth-1" %}
 </div>
 
 A max ray depth of 0 corresponds to only zero-bounce lighting, so the only thing
@@ -289,10 +285,8 @@ I used 4 light rays and max ray depth of 5.
         {% include figure.html path="assets/img/pathtracer/part4_CBbunny_64_4_5.png" caption="64 samples per pixel" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0 justify-content-center">
-        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_4_5.png" caption="1024 samples per pixel" class="mx-auto img-fluid rounded z-depth-1" %}
-    </div>
+<div class="mx-auto">
+    {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_4_5.png" caption="1024 samples per pixel" class="img-fluid rounded z-depth-1" %}
 </div>
 
 As the number of samples per pixel, the scene becomes less noisy.
