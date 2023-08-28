@@ -43,13 +43,13 @@ In the case of intersection, I update the *Intersection* data object accordingly
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part1_CBempty.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part1_CBempty.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         CBempty.dae
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part1_CBgems.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part1_CBgems.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         CBgems.dae
@@ -57,13 +57,13 @@ In the case of intersection, I update the *Intersection* data object accordingly
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part1_CBspheres_lambertian.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part1_CBspheres_lambertian.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         CBspheres_lambertian.dae
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part1_cow.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part1_cow.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         cow.dae
@@ -91,13 +91,13 @@ child, I decide that the node is a leaf node and terminate early.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part2_CBdragon.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part2_CBdragon.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         CBdragon.dae
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part2_CBlucy.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part2_CBlucy.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         CBlucy.dae
@@ -105,13 +105,13 @@ child, I decide that the node is a leaf node and terminate early.
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part2_beast.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part2_beast.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         beast.dae
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part2_maxplanck.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part2_maxplanck.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         maxplanck.dae
@@ -119,7 +119,7 @@ child, I decide that the node is a leaf node and terminate early.
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part2_walle.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part2_walle.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         wall-e.dae
@@ -152,21 +152,21 @@ $$1 / 2\pi$$ since we sample over the unit hemisphere.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part3_CBspheres_lambertian_H_64_32.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part3_CBspheres_lambertian_H_64_32.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part3_CBspheres_lambertian_64_32.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part3_CBspheres_lambertian_64_32.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part3_CBbunny_H_64_32.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part3_CBbunny_H_64_32.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         Uniform Hemisphere Sampling
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part3_CBbunny_64_32.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part3_CBbunny_64_32.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         Importance Light Sampling
@@ -184,13 +184,13 @@ the shadows looks less like individual dots.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part3_CBbunny_1_1.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part3_CBbunny_1_1.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         1 Light Ray
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part3_CBbunny_1_4.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part3_CBbunny_1_4.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         4 Light Rays
@@ -198,13 +198,13 @@ the shadows looks less like individual dots.
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part3_CBbunny_1_16.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part3_CBbunny_1_16.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         16 Light Rays
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part3_CBbunny_1_64.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part3_CBbunny_1_64.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         64 Light Rays
@@ -224,13 +224,13 @@ barely lit. In contrast, the image created with importance sampling is much clea
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part3_CBbunny_H_1_1.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part3_CBbunny_H_1_1.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         Uniform Hemisphere Sampling
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part3_CBbunny_1_1.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part3_CBbunny_1_1.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         Importance Light Sampling
@@ -257,13 +257,13 @@ I add the contributed radiance to *L_out* and return *L_out*.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CB_spheres_lambertian_1024_32_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CB_spheres_lambertian_1024_32_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         CB_spheres_lambertian.dae
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_banana_1024_32_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_banana_1024_32_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         banana.dae
@@ -276,13 +276,13 @@ I add the contributed radiance to *L_out* and return *L_out*.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_only_direct_1024_32_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_only_direct_1024_32_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         Only direct illumination
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_only_indirect_1024_32_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_only_indirect_1024_32_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         Only indirect illumination
@@ -305,13 +305,13 @@ For CBbunny.dae, here are rendered views with max ray depth set to
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_1024_32_0.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_0.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         max ray depth = 0
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_1024_32_1.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_1.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         max ray depth = 1
@@ -319,13 +319,13 @@ For CBbunny.dae, here are rendered views with max ray depth set to
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_1024_32_2.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_2.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         max ray depth = 2
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_1024_32_3.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_3.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         max ray depth = 3
@@ -333,7 +333,7 @@ For CBbunny.dae, here are rendered views with max ray depth set to
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_1024_32_100.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_32_100.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         max ray depth = 100
@@ -351,13 +351,13 @@ I used 4 light rays and max ray depth of 5.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_1_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         1 sample per pixel
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_2_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_2_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         2 samples per pixel
@@ -365,13 +365,13 @@ I used 4 light rays and max ray depth of 5.
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_4_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_4_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         4 samples per pixel
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_8_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_8_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         8 samples per pixel
@@ -379,13 +379,13 @@ I used 4 light rays and max ray depth of 5.
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_16_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_16_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         16 samples per pixel
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_64_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_64_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         64 samples per pixel
@@ -393,7 +393,7 @@ I used 4 light rays and max ray depth of 5.
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part4_CBbunny_1024_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_4_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         1024 samples per pixel
@@ -428,13 +428,13 @@ value converged early at a low sampling rate.
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part5_CBspheres_lambertian_2048_1_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part5_CBspheres_lambertian_2048_1_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         Rendered image
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part5_CBspheres_lambertian_2048_1_5_rate.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part5_CBspheres_lambertian_2048_1_5_rate.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         Sample rate image
@@ -442,13 +442,13 @@ value converged early at a low sampling rate.
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part5_CBbunny_2048_1_5.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part5_CBbunny_2048_1_5.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         Rendered image
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/mesh_edit/part5_CBbunny_2048_1_5_rate.png" title="" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/pathtracer/part5_CBbunny_2048_1_5_rate.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="caption">
         Sample rate image
