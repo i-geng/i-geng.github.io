@@ -286,7 +286,7 @@ I used 4 light rays and max ray depth of 5.
     </div>
 </div>
 <div class="text-center">
-  <img src="../assets/img/pathtracer/part4_CBbunny_1024_4_5.png" class="mx-auto d-block" alt="Centered Image">
+  <img src="/assets/img/pathtracer/part4_CBbunny_1024_4_5.png" class="mx-auto d-block" alt="Centered Image">
   <figcaption class="caption">1024 samples per pixel</figcaption>
 </div>
 
