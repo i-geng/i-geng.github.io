@@ -285,8 +285,9 @@ I used 4 light rays and max ray depth of 5.
         {% include figure.html path="assets/img/pathtracer/part4_CBbunny_64_4_5.png" caption="64 samples per pixel" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-<div class="mx-auto">
-    {% include figure.html path="assets/img/pathtracer/part4_CBbunny_1024_4_5.png" caption="1024 samples per pixel" class="img-fluid rounded z-depth-1" %}
+<div class="text-center">
+  <img src="assets/img/pathtracer/part4_CBbunny_1024_4_5.png" class="mx-auto d-block" alt="Centered Image">
+  <figcaption class="caption">1024 samples per pixel</figcaption>
 </div>
 
 As the number of samples per pixel, the scene becomes less noisy.
