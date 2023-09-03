@@ -2,11 +2,12 @@
 layout: page
 title: Pathtracer (Part 2)
 description: raytracing - expansion
-img: assets/img/pathtracer_2/Part4/Writeup_4.2_512-64_0.05_12_4_0.23_4.5.png
+img: assets/img/pathtracer_2/Part1/Writeup_1.1_spheres_256_4_100.png
 importance: 3
 category: Graphics
 ---
 **Irene Geng and Mingyang Wang**
+
 In this project:
 - Expanding the functionality of our raytracer to render additional materials, including mirror (reflective), glass (refractive), and microfacet surfaces.
 - Implementing environment lighting, which allows us to simulate incident radiance from every direction on the sphere.
@@ -41,7 +42,7 @@ Here is a sequence of 7 images of CBspheres.dae rendered with max ray depth set 
     </div>
 </div>
 <div class="text-center">
-  <img src="assets/img/pathtracer_2/Part1/Writeup_1.1_spheres_256_4_100.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
+  <img src="/assets/img/pathtracer_2/Part1/Writeup_1.1_spheres_256_4_100.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
   <figcaption class="caption">m = 100</figcaption>
 </div>
 
@@ -115,7 +116,7 @@ The titanium Lucy looks silvery, while the cesium Lucy is yellow and gold-like. 
 We used grace.exr for the images in this part of the write-up. Here is a converted .jpg of the environment map.
 
 <div class="text-center">
-  <img src="assets/img/pathtracer_2/Part3/grace.jpg" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
+  <img src="/assets/img/pathtracer_2/Part3/grace.jpg" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
   <figcaption class="caption">grace.jpg</figcaption>
 </div>
 
@@ -124,7 +125,7 @@ Environment lighting simulates incident radiance from every direction on the sph
 Here is the probability_debug.png file for grace.exr, generated using the save_probability_debug() function.
 
 <div class="text-center">
-  <img src="assets/img/pathtracer_2/Part3/probability_debug.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
+  <img src="/assets/img/pathtracer_2/Part3/probability_debug.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
   <figcaption class="caption">Probability Debug</figcaption>
 </div>
 
