@@ -117,7 +117,7 @@ Additionally, the Forward Euler Integration method used in the previous section 
 
 The methods defined below aim to solve these issues.
 
-##### Improvments: Boyer-Lindquist
+##### Improvements: Boyer-Lindquist
 
 Boyer-Lindquist Coordinates consist of 4 components: $$(r, \theta, \phi, t)$$. The first 3 coordinates, $$(r, \theta, \phi)$$, are oblate spherical coordinates. Like in the Schwarzschild case, these coordinates are typically normalized such that the black hole radius is 1. We also have a *t*-coordinate, which marks the time of an event relative to a distant, unmoving observer. This coordinate system allows us to take into account the asymmetric effect of a black hole’s rotation on spacetime curvature.
 
@@ -144,7 +144,7 @@ $$-p_t = 1$$.
 | $$\phi ' = \frac{2ar + (\Sigma - 2r)\frac{L}{\sin^2\theta}}{\Delta\Sigma}$$ | $$p_{\phi}' = 0$$ |
 | $$t' = \frac{1 + (2r(r^2 + a^2) - 2arL)}{\Delta\Sigma}$$ | $$p_t' = 0$$ |
 
-##### Improvments: Cash-Karp Method
+##### Improvements: Cash-Karp Method
 
 Our ray marching approach for Kerr black holes uses the Cash-Karp method, a fifth-order Runge-Kutta method with an adaptive step size. Cash-Karp is particularly efficient for ODEs with rapidly changing behavior by decreasing step sizes when the solution changes rapidly (such as when we are closer to the black hole), increasing accuracy as well as efficiency.
 
@@ -155,7 +155,7 @@ At each timestep, we integrate forward via Cash-Karp and update our ray’s null
 3. If the ray’s r-coordinate is greater than the camera’s r-coordinate, or if we have exceeded the max number of steps without intersecting anything, we assume that the ray has escaped to infinity (and map it to a background starfield texture).
 
 
-##### Improvments: Texture Mapping of Background and Accretion Disk
+##### Improvements: Texture Mapping of Background and Accretion Disk
 
 For a more realistic accretion disk, we asked an artist friend to create an accretion disk texture for us, pictured here:
 
@@ -178,7 +178,7 @@ Our custom accretion disk texture includes an alpha-channel, which we use to cre
 *Notable Observations: In the semi-transparent accretion disk render, we can see hints of the blue background and stars showing through the edges of the accretion disk. While subtle, this really contributes to a more realistic look.*
 
 
-##### Improvments: Bloom Filter Effect
+##### Improvements: Bloom Filter Effect
 
 As a post-processing effect, we apply a bloom filter to simulate camera lens flare and brighter intensity of the accretion disk. Bloom also creates a glowing effect where the light of the accretion disk appears to bleed over the edges. After the ray-marching process, we take a square Gaussian kernel and convolve it with each of the pixel colors that belong to the accretion disk. We add this output back to the frame buffer before writing out an image file. Below are images where we gradually increase the intensity of the bloom effect.
 
@@ -209,7 +209,7 @@ As a post-processing effect, we apply a bloom filter to simulate camera lens fla
 *We think that the level of bloom in #3 is the best visually; there is a subtle glowing effect that still showcases the structure of the accretion disk fairly well.*
 
 
-##### Attempted Improvments: Early Ray Termination Optimization
+##### Attempted Improvements: Early Ray Termination Optimization
 
 This paper describes the rendering methods used by DNEG to produce the images of a spinning black hole in the movie Interstellar. Before marching a ray, DNEG uses an early ray termination algorithm that calculates whether or not the ray originates from the black hole’s event horizon; if it does, the ray does not need to be considered further. DNEG only performs numerical integration for rays that originate from the accretion disk or the celestial sphere/starfield background.
 

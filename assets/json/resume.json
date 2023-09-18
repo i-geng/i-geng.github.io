@@ -7,9 +7,9 @@
     {
       "institution": "University of California, Berkeley",
       "area": "Computer Science & Data Science",
-      "studyType": "B.A.",
+      "studyType": "B.A. (in progress)",
       "startDate": "2020-08",
-      "endDate": "2024-05",
+      "endDate": "2024-05 (Expected)",
       "score": "",
       "courses": [
         "computational photography & computer vision",
@@ -50,9 +50,7 @@
   ],
   "certificates": [],
   "publications": [],
-  "skills": {
-    "languages": "C, C++, C#, Python, Java, OCaml, SQL, NumPy, PyTorch"
-  },
+  "skills": [],
   "languages": [
   ],
   "interests": [],
