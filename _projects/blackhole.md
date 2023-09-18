@@ -139,195 +139,289 @@ $$ds^2=-\frac{\Delta }{\Sigma }(dt-a sin^2\theta d\phi )^2+\frac{sin^2\theta }{\
 Around a Kerr black hole, a photon follows a null geodesic path, the shortest distance path between two points in curved spacetime. This can be determined by solving a system of differential equations, shown in the table below, where derivatives are taken with respect to propertime $$\tau$$. $$p = (p_r, p_{\theta}, p_{\phi}, p_t)$$ is the ray’s four-momentum, a generalization of three-dimensional momentum to spacetime. As a convenient convention, we set the ray’s conserved energy, 
 $$-p_t = 1$$.
 
+| $$r' = \frac{\Delta}{\Sigma}p_r$$ | $$p_r' = \frac{(r - 1) * (-\kappa) + 2r(r^2 + a^2) - 2aL}{\Delta\Sigma} - \frac{2p_r^2(r - 1)}{\Sigma}$$ |
+| $$\theta ' = \frac{1}{\Sigma}p_{\theta}$$ | $$p_{\theta}' = \frac{\sin\theta \cos\theta (\frac{L^2}{a^2} - a^2)}{\Sigma}$$ |
+| $$\phi ' = \frac{2ar + (\Sigma - 2r)\frac{L}{\sin^2\theta}}{\Delta\Sigma}$$ | $$p_{\phi}' = 0$$ |
+| $$t' = \frac{1 + (2r(r^2 + a^2) - 2arL)}{\Delta\Sigma}$$ | $$p_t' = 0$$ |
+
+##### Improvments: Cash-Karp Method
+
+Our ray marching approach for Kerr black holes uses the Cash-Karp method, a fifth-order Runge-Kutta method with an adaptive step size. Cash-Karp is particularly efficient for ODEs with rapidly changing behavior by decreasing step sizes when the solution changes rapidly (such as when we are closer to the black hole), increasing accuracy as well as efficiency.
+
+At each timestep, we integrate forward via Cash-Karp and update our ray’s null geodesic properties. A more complete description of this process is described in Appendix B. Like in our first approach, we perform the following ray-intersection tests:
+
+1. If we find that the ray’s r-coordinate is less than the black hole’s event horizon radius, we know that the ray has fallen into the black hole.
+2. Our accretion disk intersection test remains similar to our first approach; we check if the ray has intersected the accretion disk plane between the disk’s inner and outer radius.
+3. If the ray’s r-coordinate is greater than the camera’s r-coordinate, or if we have exceeded the max number of steps without intersecting anything, we assume that the ray has escaped to infinity (and map it to a background starfield texture).
 
 
+##### Improvments: Texture Mapping of Background and Accretion Disk
 
--------------
-
-Here is a sequence of 7 images of CBspheres.dae rendered with max ray depth set to 0, 1, 2, 3, 4, 5, and 100. We used 256 samples per pixel and 4 samples per light.
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part1/Writeup_1.1_spheres_256_4_0.png" caption="m = 0" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part1/Writeup_1.1_spheres_256_4_1.png" caption="m = 1" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part1/Writeup_1.1_spheres_256_4_2.png" caption="m = 2" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part1/Writeup_1.1_spheres_256_4_3.png" caption="m = 3" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part1/Writeup_1.1_spheres_256_4_4.png" caption="m = 4" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part1/Writeup_1.1_spheres_256_4_5.png" caption="m = 5" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="text-center">
-  <img src="/assets/img/pathtracer_2/Part1/Writeup_1.1_spheres_256_4_100.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
-  <figcaption class="caption">m = 100</figcaption>
-</div>
-
-When the max ray depth is 0, we only see zero-bounce lighting from the area light on the ceiling, and nothing in the scene is illuminated.
-
-For m = 1, we only see direct lighting, which includes zero- and one-bounce lighting; the shadows are black, similar to in Project 3-1. Additionally, the spheres are black, as it takes at least two light bounces for the glass effects of the spheres to be rendered properly (discussed more below).
-
-At all higher max ray depths (m > 1), the image is rendered with global illumination. We note that the left sphere is reflective and the right sphere is refractive.
-
-For m = 2, the left sphere begins to show a reflection of the environment’s direct lighting from the m = 1 step (we note that the ceiling and other sphere are black, like in the m = 1 case). We see a faint reflection on the right sphere, but do not yet see any refraction (refraction needs at least three bounces, as it must enter and exit the sphere as opposed to reflection just bouncing once).
-
-For m = 3, the left sphere shows a reflection of the m = 2 case (thus containing global illumination, but the other sphere is still black), and the right sphere’s glass material is finally beginning to show refraction properly; this is the first image in the sequence that shows the caustic effect.
-
-For m = 4, the left sphere’s reflection finally shows the refractive effects of the right sphere (and thus looks like glass). We see a spot of light that has been refracted through the right sphere to land on the right wall of the box.
-
-The images rendered with m = 5 and m = 100 look quite similar, with no major additional multibounce effects. The images generally appear less noisy, especially the spot of light on the right wall.
-
-
-### Part 2: Microfacet Materials
-
-Here is a sequence of 4 images of CB_dragon_microfacet_au.dae rendered with $$\alpha$$ set to 0.005, 0.05, 0.25, and 0.5. We used 256 samples per pixel, 4 samples per light, and max ray depth of 7.
-
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part2/Writeup_2.1_dragon_256_4_7-0.005.png" caption="alpha = 0.005" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part2/Writeup_2.1_dragon_256_4_7-0.05.png" caption="alpha = 0.05" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part2/Writeup_2.1_dragon_256_4_7-0.25.png" caption="alpha = 0.25" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part2/Writeup_2.1_dragon_256_4_7-0.5.png" caption="alpha = 0.5" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-
-We observe that as we increase $$\alpha$$, the dragon looks less and less glossy and more matte-like. Another interesting thing of note is that a higher $$\alpha$$ results in a slightly noisier image, likely due to the increased amount/intensity of reflections.
-
-Here are two images of CBbunny_microfacet_cu.dae rendered using cosine hemisphere sampling and our importance sampling. We used 64 samples per pixel, 1 sample per light, and max ray depth of 5.
-
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part2/Writeup_2.2_bunny_64_1_5-cosine.png" caption="Cosine Sampling" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part2/Writeup_2.2_bunny_64_1_5-importance.png" caption="Importance Sampling" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-
-We see that the cosine sampling case does not converge as well as the importance sampling case: the bunny is a lot darker/less well lit, and both the bunny and the surrounding environment are a lot more noisy. Importance sampling shows a much better lit bunny, and the bunny has a lot better color and metallic look. However, there is still a noticeable amount of noise on the surrounding walls, which can be fixed with more samples.
-
-Here are images of CB_lucy_hg.dae with modified *eta* and *k* values. We used parameters corresponding to titanium and cesium metal.
-
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part2/Writeup_2.3_lucy_1024_8_5-Ti.png" caption="Titanium" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part2/Writeup_2.3_lucy_1024_8_5-Cs.png" caption="Cesium" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-
-The titanium Lucy looks silvery, while the cesium Lucy is yellow and gold-like. Cesium is liquid at room temperature and highly reactive, but coding those effects were out of scope for this project and left as an exercise for the reader.
-
-
-### Part 3: Environment Light
-
-We used grace.exr for the images in this part of the write-up. Here is a converted .jpg of the environment map.
+For a more realistic accretion disk, we asked an artist friend to create an accretion disk texture for us, pictured here:
 
 <div class="text-center">
-  <img src="/assets/img/pathtracer_2/Part3/grace.jpg" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
-  <figcaption class="caption">grace.jpg</figcaption>
+  <img src="/assets/img/blackhole/alpha_channel/george.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
+  <figcaption> Credit: George Geng</figcaption>
 </div>
 
-Environment lighting simulates incident radiance from every direction on the sphere, from a light source that is infinitely far away. We can use environment lighting to model real-world light sources and environments. For example, the environment lighting of grace.exr simulates the lighting inside of a large cathedral, with direct light sources from multiple lamps and stained glass windows and indirect bounce lighting from every surface.
+Our custom accretion disk texture includes an alpha-channel, which we use to create semi-transparent feathering of the accretion disk. When a ray intersects the accretion disk during ray-marching, instead of terminating the ray, we march the ray through the accretion disk to also obtain the color of the black hole/background intersection(s) behind it. Then, we linearly interpolate the color of the accretion disk and future intersections with the accretion’s alpha value to achieve the partially transparent effect.
 
-Here is the probability_debug.png file for grace.exr, generated using the save_probability_debug() function.
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/alpha_channel/no_alpha.png" caption="Fully Opaque Accretion Disk" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/alpha_channel/alpha.png" caption="Semi-transparent Accretion Disk" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+*Notable Observations: In the semi-transparent accretion disk render, we can see hints of the blue background and stars showing through the edges of the accretion disk. While subtle, this really contributes to a more realistic look.*
+
+
+##### Improvments: Bloom Filter Effect
+
+As a post-processing effect, we apply a bloom filter to simulate camera lens flare and brighter intensity of the accretion disk. Bloom also creates a glowing effect where the light of the accretion disk appears to bleed over the edges. After the ray-marching process, we take a square Gaussian kernel and convolve it with each of the pixel colors that belong to the accretion disk. We add this output back to the frame buffer before writing out an image file. Below are images where we gradually increase the intensity of the bloom effect.
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/bloom/kerr_0.6_500_nobg_nobloom.png" title="" class="img-fluid rounded z-depth-1" caption="No Bloom" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/bloom/kerr_0.6_500_nobg_bloom_41_13_8.png" title="" class="img-fluid rounded z-depth-1" caption="Some Bloom" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/bloom/kerr_0.6_500_nobg_bloom_41_41.png" title="" class="img-fluid rounded z-depth-1" caption="More Bloom" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/bloom/kerr_0.6_500_nobg_bloom_41_57_1.png" title="" class="img-fluid rounded z-depth-1" caption="Too Much Bloom" %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/bloom/bloom_star.png" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/bloom/bloom_star2.png" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+*We think that the level of bloom in #3 is the best visually; there is a subtle glowing effect that still showcases the structure of the accretion disk fairly well.*
+
+
+##### Attempted Improvments: Early Ray Termination Optimization
+
+This paper describes the rendering methods used by DNEG to produce the images of a spinning black hole in the movie Interstellar. Before marching a ray, DNEG uses an early ray termination algorithm that calculates whether or not the ray originates from the black hole’s event horizon; if it does, the ray does not need to be considered further. DNEG only performs numerical integration for rays that originate from the accretion disk or the celestial sphere/starfield background.
+
+We attempted this, but ran into some mathematical bugs that we were unable to resolve in time. Our implementation just integrates all rays, which is slower but should yield similar results. Heavy optimization on our end is less necessary since we did not attempt to create large-scale animations.
+
+#### Problems Encountered and Lessons Learned
+
+Throughout this project, one of the difficulties we encountered were surrounding the technical approaches of our blackhole implementation. It was difficult to understand physics formulas presented in the paper and parse the heavy mathematical explanations for the existing blackhole models we read about in the references.
+
+We also spend some time understanding the starter code provided by project 3 and project 4. Previously, we treated a lot of the code provided in the starter skeleton as a black box and this project gave us an opportunity to explore how the ray tracing and simulation systems were set up. This understanding influenced our design decisions when setting up the ray-marching infrastructure.
+
+Through this project, we also gained some insights into the nuanced differences between various blackhole models and the ray marching algorithm. Overall, we learned a lot through researching, implementing, and exploring!
+
+Lessons learned: this entire project was one large bug. Haha pain.
+
+
+### Final Results
+
+The two gifs shown below demonstrate the effect of varying the inclination angle of the accretion disk, simulating the effect of a camera orbiting a black hole.
+
+#### Varying Inclination Angle
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/inclination_gif/check_incline_sim_full.gif" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/inclination_gif/text_incline_sim_full.gif" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+The next two gifs demonstrate the effects of varying the black hole’s angular momentum. We observe changes in the black hole size and asymmetric distortions of both the accretion disk and background.
+
+#### Varying Angular Momentum
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/angular_momentum_gif/check_a_sim_full.gif" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/angular_momentum_gif/text_a_sim_full.gif" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+The following 4 images also demonstrate effects of varying the angular momentum, with the camera placed further away from the black hole so that we can see more of the starfield. One more noticeable change is the counterclockwise rotation of images on the Einstein Ring as angular momentum increases.
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/a-values/kerr_0.1_500_bg1_bloom_41_13_4.png" title="" class="img-fluid rounded z-depth-1" caption="a = 0.1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/a-values/kerr_0.3_500_bg1_bloom_41_13_4.png" title="" class="img-fluid rounded z-depth-1" caption="a = 0.3" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/a-values/kerr_0.6_500_bg1_bloom_41_13_4.png" title="" class="img-fluid rounded z-depth-1" caption="a = 0.6" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/a-values/kerr_0.9_500_bg1_bloom_41_13_4.png" title="" class="img-fluid rounded z-depth-1" caption="a = 0.9" %}
+    </div>
+</div>
+
+
+#### Starfield Accretion Texture Mapping Results
+Lastly, we present some large, high-quality renders we produced. These took roughly 6.5 hours each on a 10 core machine:
 
 <div class="text-center">
-  <img src="/assets/img/pathtracer_2/Part3/probability_debug.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
-  <figcaption class="caption">Probability Debug</figcaption>
+  <img src="/assets/img/blackhole/final_images/text_5.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
 </div>
 
-Here is bunny_unlit.dae and grace.exr rendered with uniform sampling and importance sampling. We used 4 samples per pixel, 64 samples per light, and max ray depth of 7.
+<div class="text-center">
+  <img src="/assets/img/blackhole/final_images/text_3.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
+</div>
+
+<div class="text-center">
+  <img src="/assets/img/blackhole/final_images/text_2.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
+</div>
+
+<div class="text-center">
+  <img src="/assets/img/blackhole/final_images/text_1.png" class="mx-auto d-block img-fluid rounded z-depth-1" alt="Centered Image">
+</div>
+
+
+#### Behold the Infinite
+As is standard practice in classes, we are obligated to use the professor’s faces for a meme render. Or perhaps… a RENder:
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part3/Writeup_3.3_bunny_unlit_4_64_7-uniform.png" caption="Uniform Sampling" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/blackhole/final_images/prof_ren.png" caption="Professor Ren Ng" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part3/Writeup_3.3_bunny_unlit_4_64_7-importance.png" caption="Importance Sampling" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/blackhole/final_images/prof_obrien.png" caption="Professor James F. O'Brien" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
-The image rendered with importance sampling is much less noisy than the uniform sampling image. The uniform sampling image is almost entirely dark, with specks of color scattered on the model surface. It is additionally somewhat difficult to see the bunny’s shape in the uniform sampling image.
+### References
 
-Here is bunny_microfacet_cu_unlit.dae and grace.exr rendered with uniform sampling and importance sampling. We used 4 samples per pixel, 64 samples per light, and max ray depth of 7.
+- \[1\] Interstellar paper: https://iopscience.iop.org/article/10.1088/0264-9381/32/6/065001/pdf
+- \[2\] Bloom shader filter: https://learnopengl.com/Advanced-Lighting/Bloom
+- \[3\] Reference 1: https://rantonels.github.io/starless/
+- \[4\] Reference 2: http://locklessinc.com/articles/raytracing/
+- \[5\] Reference 3: https://www.codeproject.com/Articles/994466/Ray-Tracing-a-Black-Hole-in-Csharp
+- \[6\] Kerr Metric: https://en.wikipedia.org/wiki/Kerr_metric
+- \[7\] Boyer-Lindquist: https://en.wikipedia.org/wiki/Boyer–Lindquist_coordinates
+- \[8\] Cash-Karp method: https://en.wikipedia.org/wiki/Cash–Karp_method
+- \[9\] Runge-Kutta method: https://en.wikipedia.org/wiki/Runge–Kutta_methods
+- \[10\] Ray Diagram: https://galileo-unbound.blog/2019/07/29/orbiting-photons-around-a-black-hole/
+
+### Appendix
+
+##### A: the acceleration derivation
+
+The following derivation was taken from \[3\]:
+
+For a Schwarzschild Black Hole, the angular momentum $$a = 0$$ and charge $$Q = 0$$. Additionally, we normalize the speed of light $$c = 1$$ and the black hole’s Schwarzchild radius $$r_s = 1$$. Therefore, the line element (in spherical coordinates) can be defined as:
+$$ds^2 = (1 - \frac{1}{r})dt^2 - (1 - \frac{1}{r})^{-1}dr^2 - r^2d\theta^2 - r^2\sin^2\theta d\phi^2$$
+
+We set $$\theta = \frac{\pi}{2}$$, so $$d\theta = 0$$. Additionally, we define $$e = (1 - \frac{1}{r})\frac{dt}{d\tau}$$ and $$l = r^2 \frac{d\phi}{d\tau}$$, and then set $$ds^2 = 1$$.
+$$(1 - \frac{1}{r})dt^2 - (1 - \frac{1}{r})^{-1}dr^2 - r^2d\theta^2 - r^2\sin^2\theta d\phi^2 = 1$$
+$$\frac{1}{1 - \frac{1}{r}} * e^2 - \frac{1}{1 - \frac{1}{r}}\frac{dr^2}{d\tau^2} - r^2 * 0 - \frac{l^2}{r^2} = 1$$
+$$\frac{1}{1 - \frac{1}{r}}\frac{dr^2}{d\tau^2} = \frac{1}{1 - \frac{1}{r}} * e^2 - 1 - \frac{l^2}{r^2}$$
+$$\frac{dr^2}{d\tau^2} = e^2 - (1 - \frac{1}{r}) (1 + \frac{l^2}{r^2})$$
+$$r^4 \frac{dr^2}{d\tau^2} = r^4 \frac{dr^2}{d\phi^2}\frac{d\phi^2}{d\tau^2} = l^2 \frac{dr^2}{d\phi^2} = r^4 e^2 - (1 - \frac{1}{r}) (r^4 + r^2l^2)$$
+$$\frac{dr^2}{d\phi^2} = \frac{r^4 e^2}{l^2} - (1 - \frac{1}{r}) (\frac{r^4}{l^2} + r^2)$$
+
+We then perform the change of coordinates $$r \implies u = \frac{1}{r}$$, yielding:
+$$\frac{du^2}{d\phi^2} = \frac{1}{b^2} - (1 - u) (a^{-2} + u^2)$$
+where $$b = \frac{l}{e}$$ and $$a = l$$
+
+We take $$\lim_{a \to \inf}$$, so $$\frac{du^2}{d\phi^2} = \frac{1}{b^2} - (1 - u) (u^2)$$
+
+This equation can then be solved to yield: $$u^{''}(\phi) = -u (1 - \frac{3}{2} u^2)$$, or $$u^{''}(\phi) + u = \frac{3}{2} u^3$$.
+
+The Binet equation for the equation for orbit of a particle is $$u^{''} + u = - \frac{1}{mh^2u^2}F(u)$$
+
+By setting $$m = 1$$, equating the above two equations, and plugging back in $$r = \frac{1}{u}$$, we obtain:
+$$F = a = -\frac{3}{2}h^2\frac{\hat{r}}{r^5}$$, which we can use for ray marching.
+
+
+#### B: Cash-Karp Integration
+
+The Cash-Karp method is a type of Runge-Kutta method (the same family as Forward Euler Integration), which approximate the solution of an ODE by iteratively computing a sequence of intermediate values that depend on the previous values and the derivatives of the function at those values. Cash-Karp is a fifth order method, and estimates/integrates forward via:
+$$y_{n+1} = y_n + h \sum_{i=1}^s b_i k_i$$
+where:
+
+- $$k_1 = f(t_n, y_n)$$
+- $$k_2 = f(t_n + \frac{1}{5}*h, y_n + \frac{1}{5}k_1*h)$$
+- $$k_3 = f(t_n + \frac{3}{10}*h, y_n + (\frac{3}{40}k_1 + \frac{9}{40}k_2)*h)$$
+- $$k_4 = f(t_n + \frac{3}{5}*h, y_n + (\frac{3}{10}k_1 - \frac{9}{10}k_2 + \frac{6}{5}k_3)*h)$$
+- $$k_5 = f(t_n + h, y_n + (\frac{-11}{54}k_1 - \frac{5}{2}k_2 + \frac{-70}{27}k_3 + \frac{35}{27}k_4)*h)$$
+- $$k_6 = f(t_n + \frac{7}{8} h, y_n + (\frac{1631}{55296}k_1 - \frac{175}{512}k_2 + \frac{575}{13824}k_3 + \frac{44275}{110592}k_4 + \frac{253}{4096}k_5)*h)$$
+- $$b_1 = \frac{37}{378}$$
+- $$b_2 = 0$$
+- $$b_3 = \frac{250}{621}$$
+- $$b_4 = \frac{125}{594}$$
+- $$b_5 = 0$$
+- $$b_6 = \frac{512}{1771}$$
+
+Additionally, Cash-Karp includes a sixth-order estimate to estimate the error of the fifth order solution.  For every timestep, if the error estimate is too large, then Cash-Karp reduces the step size until the error is below some threshold. Error is calculated via
+$$e_{n+1} = y_{n+1} - y_{n+1}^* = h \Sigma_{i=1}^s(b_i - b_i^*)k_i$$, 
+where:
+
+- $$y_{n+1}^* = y_n + h \Sigma_{i=1}^sb_i^*k_i$$
+- $$b_1^* = \frac{2825}{27648}$$
+- $$b_2^* = 0$$
+- $$b_3^* = \frac{18575}{48384}$$
+- $$b_4^* = \frac{13525}{55296}$$
+- $$b_5^* = \frac{277}{14336}$$
+- $$b_6^* = \frac{1}{4}$$
+
+Cash-Karp is advantageous because it allows for high accuracy and efficiency due to its adaptive step size control. In our application, this allows us to take large step sizes while far away from the black hole (where the effect of gravitational lensing is less apparent) and smaller step sizes while close to the black hole, where photon trajectories change drastically.
+
+#### C: Bug Art Gallery
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part3/Writeup_3.4_bunny_microfacet_unlit_4_64_7-uniform.png" caption="Uniform Sampling" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/blackhole/bug_art/image1.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part3/Writeup_3.4_bunny_microfacet_unlit_4_64_7-importance.png" caption="Importance Sampling" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-
-The image rendered with importance sampling is significantly less noisy and is brighter than the uniform sampling image. Moreover, the bunny has a distinct metallic look in the importance sampling image, but has a very limited effect in the uniform sampling image. The uniform sampling image is much more noisy: the copper material of the bunny model and the pillow it’s placed on has many small bright specks (while there are much fewer in the importance sampling image).
-
-
-### Part 4: Depth of Field
-
-In a pinhole camera model, we assume a perfect lens aperture of 0. As a result, every point in the scene appears in focus, as all the rays pass through one individual “pinhole” point in the camera, so every point in camera space receives radiance from a single point.
-
-In the thin-lens camera model, the camera has a lens (of non zero aperture) that bends and refracts light. Only points that lie at the plane of focus (based on the camera’s focal length) will appear exactly in focus, while points in front or behind the plane of focus will be out of focus and blurred. A point in camera space receives radiance from any point on the thin lens, so we must uniformly sample over the thin lens disk.
-
-Here is CBdragon_microfacet_au.dae focused at 4 visibly different depths. We used 512 samples per pixel, 4 samples per light, and an aperture of 0.23.
-
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part4/Writeup_4.2_512-64_0.05_12_4_0.23_4.5.png" caption="d = 4.5" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/blackhole/bug_art/image10.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part4/Writeup_4.2_512-64_0.05_12_4_0.23_4.8.png" caption="d = 4.8" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/blackhole/bug_art/image15.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/bug_art/image13.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part4/Writeup_4.2_512-64_0.05_12_4_0.23_5.png" caption="d = 5" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/blackhole/bug_art/image18.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part4/Writeup_4.2_512-64_0.05_12_4_0.23_6.png" caption="d = 6" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-
-As the focal length increases, the plane of focus moves farther back. The above sequence of images shows the plane of focus at the head of the dragon, the body of the dragon, the tail of the dragon, and the back wall of the Cornell Box.
-
-Here is CBbunny_microfacet_cu.dae rendered with 4 different aperture sizes, all with a focal length of 4.6 (focused on the head of the bunny). We used 512 samples per pixel and 4 samples per light.
-
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part4/Writeup_4.3_bunny_512-64_0.05_12_4_0.05_4.6.png" caption="b = 0.05" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/blackhole/bug_art/image14.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part4/Writeup_4.3_bunny_512-64_0.05_12_4_0.3_4.6.png" caption="b = 0.3" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/blackhole/bug_art/image9.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/bug_art/image16.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part4/Writeup_4.3_bunny_512-64_0.05_12_4_0.6_4.6.png" caption="b = 0.6" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/blackhole/bug_art/image7.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/pathtracer_2/Part4/Writeup_4.3_bunny_512-64_0.05_12_4_1_4.6.png" caption="b = 1" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/blackhole/bug_art/image4.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/bug_art/image5.png" title="" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/blackhole/bug_art/image3.png" title="" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-
-As the aperture size increases, the depth of field decreases. When b = 0.05, we see that everything is in focus. However, when b = 0.3 and b = 0.6, we see that the walls of the Cornell Box, the edges of the light on the roof, and the back ear of the bunny begin to appear out of focus. When b = 1, the edges of the back all are almost indistinguishable, and the ears of the bunny are almost entirely blurred out.

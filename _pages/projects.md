@@ -2,10 +2,10 @@
 layout: page
 title: projects
 permalink: /projects/
-description: computer graphics
+description:
 nav: true
 nav_order: 2
-display_categories: [graphics]
+display_categories: [Graphics]
 horizontal: false
 ---
 
