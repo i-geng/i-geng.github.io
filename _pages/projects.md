@@ -5,7 +5,7 @@ permalink: /projects/
 description:
 nav: true
 nav_order: 2
-display_categories: [Graphics]
+display_categories: [graphics]
 horizontal: false
 ---
 

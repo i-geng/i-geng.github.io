@@ -4,7 +4,7 @@ title: Pathtracer (Part 2)
 description: raytracing - expansion
 img: assets/img/pathtracer_2/Part1/Writeup_1.1_spheres_256_4_100.png
 importance: 3
-category: Graphics
+category: graphics
 ---
 **Irene Geng and Mingyang Wang**
 

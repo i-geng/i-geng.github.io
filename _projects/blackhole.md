@@ -4,7 +4,7 @@ title: Black Hole Ray Marcher
 description: ray marching for rendering physically realistic black holes
 img: assets/img/blackhole/final_images/texture_1_bh_zoom.png
 importance: 1
-category: Graphics
+category: graphics
 ---
 **Team Members: Irene Geng, Mingyang Wang, Grace Chen, Jerry Zhang**
 

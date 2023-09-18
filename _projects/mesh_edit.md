@@ -1,10 +1,10 @@
 ---
 layout: page
 title: Mesh Edit
-description: Geometric mesh operations
+description: geometric mesh operations
 img: assets/img/mesh_edit/teapot_icon.png
 importance: 4
-category: Graphics
+category: graphics
 ---
 
 In this project:

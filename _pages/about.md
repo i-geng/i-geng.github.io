@@ -16,8 +16,8 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false  # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Hello, I'm Irene! I'm a 4th-year undergraduate student at UC Berkeley majoring in computer science and data science. Since May 2023, I've also been an intern at the NASA Jet Propulsion Lab, working on flight software for the Mars Sample Retrieval Lander.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+Currently, I'm most interested in computer graphics--some of my favorite graphics projects are here on this website--and operating systems, and I'm also excited to be studying computational photography/computer vision, reinforcement learning, and compilers this fall.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+Besides academics, I love being involved in multiple dance clubs on campus and having cooking socials with friends.
