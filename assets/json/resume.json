@@ -50,7 +50,9 @@
   ],
   "certificates": [],
   "publications": [],
-  "skills": ["C", "C++", "C#", "Python", "Java", "SQL", "NumPy", "PyTorch"],
+  "skills": {
+    "languages": "C, C++, C#, Python, Java, OCaml, SQL, NumPy, PyTorch"
+  },
   "languages": [
   ],
   "interests": [],
