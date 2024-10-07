@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: irenegeng2@berkeley.edu
+subtitle: igeng@stanford.edu
 
 profile:
   align: right
@@ -16,8 +16,12 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false  # includes social icons at the bottom of the page
 ---
 
-Hello, I'm Irene! I'm a 4th-year undergraduate student at UC Berkeley majoring in computer science and data science. Since May 2023, I've also been an intern at the NASA Jet Propulsion Lab, working on flight software for the Mars Sample Retrieval Lander.
+Hello, I'm Irene! I'm a first year Master's student at Stanford University majoring in Computer Science, with a focus
+in Graphics/Visual Computing and Systems.
 
-Currently, I'm most interested in computer graphics--some of my favorite graphics projects are here on this website--and operating systems, and I'm also excited to be studying computational photography/computer vision, reinforcement learning, and compilers this fall.
+My dream is to work on graphics software for artists! I'm constantly inspired by my amazing artist brother, who
+is studying Character Animation over at CalArts, as well as so many 2D and 3D animated shows and films. I want to get
+as close as I can to the creation and development of the stories that I love so much.
 
-Besides academics, I love being involved in multiple dance clubs on campus and having cooking socials with friends.
+Current interests: procedural shading for non-photorealistic rendering & the physics of realistic
+mesh deformation!

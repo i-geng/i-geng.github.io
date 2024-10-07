@@ -6,15 +6,36 @@
   "education": [
     {
       "institution": "University of California, Berkeley",
-      "area": "Computer Science & Data Science",
-      "studyType": "B.A. (in progress)",
+      "area": "Computer Science, Data Science (double major)",
+      "studyType": "B.A.",
       "startDate": "2020-08",
       "endDate": "2024-05",
       "score": "",
       "courses": [
+          "computational photography & computer vision",
+          "computer graphics",
+          "operating systems",
+          "computer security",
+          "reinforcement learning",
+          "machine learning",
+          "artificial intelligence",
+          "databases",
+          "algorithms",
+          "computer architecture & machine structures"
+      ]
+    },
+    {
+      "institution": "University of California, Berkeley",
+      "area": "Computer Science, Data Science (double major)",
+      "studyType": "B.A.",
+      "startDate": "2020",
+      "endDate": "2024",
+      "GPA": "3.99",
+      "courses": [
         "computational photography & computer vision",
         "computer graphics",
         "operating systems",
+        "compilers",
         "computer security",
         "reinforcement learning",
         "machine learning",
