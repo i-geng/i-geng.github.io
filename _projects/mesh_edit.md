@@ -3,7 +3,7 @@ layout: page
 title: Mesh Edit
 description: geometric mesh operations
 img: assets/img/mesh_edit/teapot_icon.png
-importance: 4
+importance: 5
 category: graphics
 ---
 

@@ -3,7 +3,7 @@ layout: page
 title: Pathtracer (Part 1)
 description: raytracing - basic lighting & Lambertian surfaces
 img: assets/img/pathtracer_1/part4_CBbunny_1024_4_5.png
-importance: 2
+importance: 3
 category: graphics
 ---
 
