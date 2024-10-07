@@ -1,6 +1,6 @@
 ---
 layout: page
-title: TetraPolyscope
+title: Tetra\nPolyscope
 description: tetrachromatic colors beyond the RGB gamut
 img: assets/img/tetrapolyscope/transparent_cube_map.png
 importance: 1
